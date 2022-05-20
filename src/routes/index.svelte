@@ -2,14 +2,13 @@
 	const getJson = async (shouldHaveBody: boolean) => {
 		const resp = await fetch('/my-standalone-endpoint.json?which=json', {
 			method: 'POST',
-			body: shouldHaveBody ? JSON.stringify({ name: 'Elliott' }) : undefined
+			body: shouldHaveBody ? '{}' : undefined
 		});
 		return (await resp.json()) as { name: string };
 	};
 
 	const getFormData = async (shouldHaveBody: boolean) => {
 		const potentialBody = new FormData();
-		potentialBody.append('name', 'Elliott');
 
 		const resp = await fetch('/my-standalone-endpoint.json?which=formData', {
 			method: 'POST',

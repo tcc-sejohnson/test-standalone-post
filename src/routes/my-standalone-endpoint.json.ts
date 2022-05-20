@@ -17,7 +17,11 @@ export const post: RequestHandler = async ({ request, url }) => {
     case 'formData':
       try {
         const formData = await request.formData();
-        body = { name: formData.get('name')?.toString() ?? 'world' }
+        if (formData.has('name')) {
+        body = { name: formData.get('name')!.toString() }
+        } else {
+          body = "{}"
+        }
       } catch (e) {
         body = { error: (e as Error)?.message };
       }
